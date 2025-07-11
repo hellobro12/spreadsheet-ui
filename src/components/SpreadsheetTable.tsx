@@ -1,184 +1,152 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
 
 export default function SpreadsheetTable() {
-  const [headers, setHeaders] = useState(['Item', 'Q1', 'Q2', 'Q3', 'Total']);
-  const [rowLabels, setRowLabels] = useState([
-    'Design',
-    'Marketing',
-    'Development',
-    'Customer Support',
-    'Sales',
-  ]);
-  const [cellData, setCellData] = useState<string[][]>([]);
+  const headers = [
+    '#',
+    'Job Request',
+    'Submitted',
+    'Status',
+    'Submitter',
+    'URL',
+    'Assigned',
+    'Priority',
+    'Due Date',
+    'Est. Value',
+  ];
 
-  const cols = headers.length;
-  const cellRefs = useRef<Array<Array<HTMLTableCellElement | null>>>([]);
-
-  useEffect(() => {
-    setCellData((prevData) => {
-      const newData = [...prevData];
-
-      while (newData.length < rowLabels.length) {
-        newData.push(new Array(cols - 2).fill(''));
-      }
-
-      while (newData.length > rowLabels.length) {
-        newData.pop();
-      }
-
-      for (let i = 0; i < newData.length; i++) {
-        while (newData[i].length < cols - 2) {
-          newData[i].push('');
-        }
-        while (newData[i].length > cols - 2) {
-          newData[i].pop();
-        }
-      }
-
-      return newData;
-    });
-  }, [rowLabels.length, cols]);
-
-  useEffect(() => {
-    cellRefs.current = Array(rowLabels.length)
-      .fill(null)
-      .map(() => Array(cols - 2).fill(null));
-  }, [rowLabels.length, cols]);
-
-  const handleCellInput = (value: string, rowIdx: number, colIdx: number) => {
-    const newData = [...cellData];
-    newData[rowIdx][colIdx] = value;
-    setCellData(newData);
-  };
-
-  const getRowTotal = (row: string[]) => {
-    return row.reduce((sum, val) => {
-      const num = parseFloat(val);
-      return sum + (isNaN(num) ? 0 : num);
-    }, 0);
-  };
+  const rows = [
+    {
+      id: 1,
+      jobRequest: 'Launch social media campaign for product',
+      submitted: '',
+      status: 'In-process',
+      submitter: { name: 'Aisha Patel', avatar: 'A' },
+      url: 'https://www.aishapatel.com',
+      assigned: { name: 'Sophie Choudhury', avatar: 'S' },
+      priority: 'Medium',
+      dueDate: '20-11-2024',
+      value: '₹6,200,000',
+    },
+    {
+      id: 2,
+      jobRequest: 'Update onboarding documentation',
+      submitted: '12-07-2024',
+      status: 'Need to start',
+      submitter: { name: 'Rajiv Mehra', avatar: 'R' },
+      url: 'https://www.rajivm.dev',
+      assigned: { name: 'Anjali Das', avatar: 'A' },
+      priority: 'High',
+      dueDate: '24-07-2024',
+      value: '₹3,500,000',
+    },
+    {
+      id: 3,
+      jobRequest: 'Fix payment gateway bugs',
+      submitted: '05-06-2024',
+      status: 'Blocked',
+      submitter: { name: 'Tanvi Rao', avatar: 'T' },
+      url: 'https://www.tanvirao.io',
+      assigned: { name: 'Nikhil Arora', avatar: 'N' },
+      priority: 'Low',
+      dueDate: '12-08-2024',
+      value: '₹1,200,000',
+    },
+  ];
 
   return (
     <div className="overflow-auto border rounded shadow bg-white max-h-[500px]">
-      {/* Buttons */}
-      <div className="flex justify-between items-center p-2 gap-4">
-        <button
-          onClick={() => {
-            const newLabel = `Q${headers.length - 3}`;
-            const newHeaders = [...headers];
-            newHeaders.splice(headers.length - 1, 0, newLabel);
-            setHeaders(newHeaders);
-          }}
-          className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600 text-sm"
-        >
-          + Add Column
-        </button>
-
-        <button
-          onClick={() => {
-            setRowLabels([...rowLabels, `New Row ${rowLabels.length + 1}`]);
-          }}
-          className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 text-sm"
-        >
-          + Add Row
-        </button>
-      </div>
-
-      {/* Table */}
       <table className="min-w-full table-fixed border-collapse">
         <thead className="sticky top-0 bg-gray-100 z-10 shadow-sm">
           <tr>
-            {headers.map((header, index: number) => (
+            {headers.map((header, index) => (
               <th
                 key={index}
-                className="border p-2 text-left text-sm font-medium bg-gray-100"
+                className="border px-3 py-2 text-left text-xs font-semibold text-gray-600 uppercase bg-gray-100"
               >
                 {header}
               </th>
             ))}
           </tr>
         </thead>
+
         <tbody>
-          {rowLabels.map((label, rowIdx) => (
-            <tr key={rowIdx}>
-              {/* Editable Row Label */}
-              <td
-                contentEditable
-                suppressContentEditableWarning
-                onBlur={(e) => {
-                  const newLabel = (e.target as HTMLElement).innerText;
-                  const updatedLabels = [...rowLabels];
-                  updatedLabels[rowIdx] = newLabel;
-                  setRowLabels(updatedLabels);
-                }}
-                className="border p-2 text-sm font-medium bg-gray-50 hover:bg-blue-50 focus:outline-none text-left"
-              >
-                {label}
+          {rows.map((row) => (
+            <tr key={row.id}>
+              {/* Row Index */}
+              <td className="border px-3 py-2 text-sm">{row.id}</td>
+
+              {/* Job Request */}
+              <td className="border px-3 py-2 text-sm" contentEditable>
+                {row.jobRequest}
               </td>
 
-              {/* Editable Cells */}
-              {cellData[rowIdx]?.map((value, colIdx) => (
-                <td
-                  key={colIdx}
-                  ref={(el) => {
-                    if (!cellRefs.current[rowIdx]) {
-                      cellRefs.current[rowIdx] = [];
-                    }
-                    cellRefs.current[rowIdx][colIdx] = el;
-                  }}
-                  tabIndex={0}
-                  contentEditable
-                  suppressContentEditableWarning
-                  onInput={(e) =>
-                    handleCellInput(
-                      (e.target as HTMLElement).innerText,
-                      rowIdx,
-                      colIdx
-                    )
-                  }
-                  onKeyDown={(e) => {
-                    const next = (r: number, c: number) => {
-                      const ref = cellRefs.current[r]?.[c];
-                      if (ref) ref.focus();
-                    };
+              {/* Submitted */}
+              <td className="border px-3 py-2 text-sm text-gray-600">
+                {row.submitted || '—'}
+              </td>
 
-                    switch (e.key) {
-                      case 'ArrowDown':
-                        e.preventDefault();
-                        next(rowIdx + 1, colIdx);
-                        break;
-                      case 'ArrowUp':
-                        e.preventDefault();
-                        next(rowIdx - 1, colIdx);
-                        break;
-                      case 'ArrowRight':
-                        e.preventDefault();
-                        next(rowIdx, colIdx + 1);
-                        break;
-                      case 'ArrowLeft':
-                        e.preventDefault();
-                        next(rowIdx, colIdx - 1);
-                        break;
-                      default:
-                        break;
-                    }
-                  }}
-                  onFocus={(e) => {
-                    e.currentTarget.classList.add('ring-2', 'ring-blue-400');
-                  }}
-                  onBlur={(e) => {
-                    e.currentTarget.classList.remove('ring-2', 'ring-blue-400');
-                  }}
-                  className="border p-2 text-sm hover:bg-blue-50 focus:outline-none"
+              {/* Status */}
+              <td className="border px-3 py-2">
+                <span
+                  className={`text-xs px-2 py-1 rounded-full font-semibold ${
+                    row.status === 'In-process'
+                      ? 'bg-orange-100 text-orange-700'
+                      : row.status === 'Need to start'
+                      ? 'bg-blue-100 text-blue-700'
+                      : row.status === 'Complete'
+                      ? 'bg-green-100 text-green-700'
+                      : 'bg-red-100 text-red-700'
+                  }`}
                 >
-                  {value}
-                </td>
-              ))}
-
-              {/* Auto Total */}
-              <td className="border p-2 text-sm bg-gray-100 text-right font-semibold">
-                {getRowTotal(cellData[rowIdx] || []).toFixed(2)}
+                  {row.status}
+                </span>
               </td>
+
+              {/* Submitter */}
+              <td className="border px-3 py-2 flex items-center gap-2">
+                <div className="w-6 h-6 rounded-full bg-purple-500 text-white text-xs flex items-center justify-center">
+                  {row.submitter.avatar}
+                </div>
+                <span className="text-sm">{row.submitter.name}</span>
+              </td>
+
+              {/* URL */}
+              <td className="border px-3 py-2 text-sm text-blue-600 underline">
+                <a href={row.url} target="_blank" rel="noreferrer">
+                  {row.url.replace(/^https?:\/\//, '')}
+                </a>
+              </td>
+
+              {/* Assigned */}
+              <td className="border px-3 py-2 flex items-center gap-2">
+                <div className="w-6 h-6 rounded-full bg-green-600 text-white text-xs flex items-center justify-center">
+                  {row.assigned.avatar}
+                </div>
+                <span className="text-sm">{row.assigned.name}</span>
+              </td>
+
+              {/* Priority */}
+              <td className="border px-3 py-2">
+                <span
+                  className={`text-xs px-2 py-1 rounded-full font-semibold ${
+                    row.priority === 'High'
+                      ? 'bg-red-100 text-red-700'
+                      : row.priority === 'Medium'
+                      ? 'bg-yellow-100 text-yellow-800'
+                      : 'bg-gray-100 text-gray-700'
+                  }`}
+                >
+                  {row.priority}
+                </span>
+              </td>
+
+              {/* Due Date */}
+              <td className="border px-3 py-2 text-sm" contentEditable>
+                {row.dueDate}
+              </td>
+
+              {/* Est. Value */}
+              <td className="border px-3 py-2 text-sm font-medium">{row.value}</td>
             </tr>
           ))}
         </tbody>
