@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/spreadsheet-ui/static/css/main.7c9bcfe2.css",
+    "main.js": "/spreadsheet-ui/static/js/main.0750ccd3.js",
+    "static/js/453.5c4bcce9.chunk.js": "/spreadsheet-ui/static/js/453.5c4bcce9.chunk.js",
+    "index.html": "/spreadsheet-ui/index.html",
+    "main.7c9bcfe2.css.map": "/spreadsheet-ui/static/css/main.7c9bcfe2.css.map",
+    "main.0750ccd3.js.map": "/spreadsheet-ui/static/js/main.0750ccd3.js.map",
+    "453.5c4bcce9.chunk.js.map": "/spreadsheet-ui/static/js/453.5c4bcce9.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7c9bcfe2.css",
+    "static/js/main.0750ccd3.js"
+  ]
+}
