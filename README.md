@@ -1,46 +1,63 @@
-# Getting Started with Create React App
+# Spreadsheet UI Project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a React project where I built a spreadsheet-like UI based on a Figma design called "Intern Design Assignment." The goal was to make it look and feel as close as possible to the design with editable cells, colored status badges, and avatars.
 
-## Available Scripts
+## Live Demo
 
-In the project directory, you can run:
+Check out the live version here:  
+[https://hellobro12.github.io/spreadsheet-ui](https://hellobro12.github.io/spreadsheet-ui)
 
-### `npm start`
+## What I Built
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- A table with editable cells like a spreadsheet  
+- Colored badges to show different status (like "In-process", "Complete", etc.)  
+- User avatars shown in the table  
+- A toolbar with buttons that log messages when clicked  
+- Styled everything using Tailwind CSS to match the design  
+- Used React and TypeScript for better coding practice
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Tech Stuff Used
 
-### `npm test`
+- React 18 with Create React App  
+- TypeScript in strict mode for safer code  
+- Tailwind CSS for quick styling  
+- react-icons for icons  
+- Deployed on GitHub Pages
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## How to Run It Locally
 
-### `npm run build`
+If you want to try it out on your machine, here’s how:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Clone this repo:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+   ```bash
+   git clone https://github.com/hellobro12/spreadsheet-ui.git
+   cd spreadsheet-ui
+Install the dependencies:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+bash
+Copy
+Edit
+npm install
+Start the app:
 
-### `npm run eject`
+bash
+Copy
+Edit
+npm start
+Open your browser and go to http://localhost:3000
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Things to Note
+The spreadsheet looks like the Figma design but doesn’t have all features yet (like keyboard navigation or real-time updates)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Toolbar buttons just print messages in the console for now — they don’t do actual actions
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Avatars and statuses are hardcoded for now — no backend or database
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+This was mainly a front-end project focused on UI and interactivity
 
-## Learn More
+Thanks for checking out my project! If you want to give feedback or suggest improvements, feel free to reach out.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+About Me
+I'm a recent college graduate starting my journey in front-end development. This project helped me practice building UIs with React, TypeScript, and Tailwind CSS.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
