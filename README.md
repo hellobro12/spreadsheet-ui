@@ -52,9 +52,9 @@ The spreadsheet looks like the Figma design but doesn’t have all features yet 
 
 Toolbar buttons just print messages in the console for now — they don’t do actual actions
 
-Avatars and statuses are hardcoded for now — no backend or database
+Avatars and statuses are hardcoded for now — no backend or database.
 
-This was mainly a front-end project focused on UI and interactivity
+This was mainly a front-end project focused on UI and interactivity.
 
 Thanks for checking out my project! If you want to give feedback or suggest improvements, feel free to reach out.
 
