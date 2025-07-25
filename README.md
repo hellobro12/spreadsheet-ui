@@ -2,7 +2,7 @@
 
 This is a React project where I built a spreadsheet-like UI based on a Figma design called "Intern Design Assignment." The goal was to make it look and feel as close as possible to the design with editable cells, colored status badges, and avatars.
 
-## Live Demo
+
 
 Check out the live version here:  
 [https://hellobro12.github.io/spreadsheet-ui](https://hellobro12.github.io/spreadsheet-ui)
